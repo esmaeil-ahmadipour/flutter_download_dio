@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:open_file/open_file.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -9,11 +10,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  String _openResult = 'Unknown';
+
   bool downloading = false;
 
   String progress = '0';
 
   bool isDownloaded = false;
+
+  String path = '';
 
   String uri =
       'https://ea2.ir/uploads/a977.png'; // url of the file to be downloaded
@@ -60,12 +65,22 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+
+  Future<void> openFile() async {
+
+    final result = await OpenFile.open(path);
+
+    setState(() {
+      _openResult = "type=${result.type}  message=${result.message}";
+    });
+
+  }
+
   //gets the applicationDirectory and path for the to-be downloaded file
 
   // which will be used to save the file to that path in the downloadFile method
 
   Future<String> getFilePath(uniqueFileName) async {
-    String path = '';
 
     Directory dir = await getApplicationDocumentsDirectory();
 
@@ -95,6 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
               )
                   : Text(
                   'Click the FloatingActionButton to start Downloading!'),
+              RaisedButton(onPressed: isDownloaded?(){openFile();}:null,child: Text('OpenFile'),),
             ],
           ),
         ),
