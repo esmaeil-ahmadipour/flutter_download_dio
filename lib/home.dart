@@ -21,9 +21,9 @@ class _MyHomePageState extends State<MyHomePage> {
   String path = '';
 
   String uri =
-      'https://ea2.ir/uploads/a977.png'; // url of the file to be downloaded
+      'https://ea2.ir/uploads/app-release.apk'; // url of the file to be downloaded
 
-  String filename = 'a977.png'; // file name that you desire to keep
+  String filename = 'app-release.apk'; // file name that you desire to keep
 
   // downloading logic is handled by this method
 
@@ -94,6 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
     print('build running');
 
     return Scaffold(
+      backgroundColor: Colors.grey,
       appBar: AppBar(
         title: Text('Download By DIO'),
       ),
